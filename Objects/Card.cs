@@ -1,7 +1,9 @@
+namespace tripletriadsim.Objects;
+
 class Card
 {
     public int Top, Left, Right, Bottom;
-    public bool OwnedByPlayerOne;
+    public bool OwnedByPlayerOne, Empty;
 
     public Card(int top, int left, int right, int bottom, bool playerOne)
     {
@@ -10,6 +12,12 @@ class Card
         Right = right;
         Bottom = bottom;
         OwnedByPlayerOne = playerOne;
+        Empty = false;
+    }
+
+    public Card()
+    {
+        Empty = true;
     }
 
     public bool CheckIfCaptured(Card opponent, string opponentRelativePos)
@@ -36,6 +44,13 @@ class Card
 
     public override string ToString()
     {
-        return $"  {Top}  \n{Left}   {Right}\n  {Bottom}  ";
+        if(!Empty)
+        {
+            return $"  {Top}  \n{Left}   {Right}\n  {Bottom}  \n";
+        }
+        else
+        {
+            return "Empty\n";
+        }
     }
 }
