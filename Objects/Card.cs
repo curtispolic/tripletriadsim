@@ -22,6 +22,14 @@ class Card
 
     public bool CheckIfCaptured(Card opponent, string opponentRelativePos)
     {
+        if (Empty)
+        {
+            return false;
+        }
+        else if (opponent.OwnedByPlayerOne == OwnedByPlayerOne)
+        {
+            return false;
+        }
         switch (opponentRelativePos)
         {
             case "above":
@@ -55,6 +63,17 @@ class Card
     }
 
     // Functions to help with Board printing
+    public string GetPlayer()
+    {
+        if (Empty)
+        {
+            return " ";
+        }
+        else
+        {
+            return OwnedByPlayerOne ? "A" : "B";
+        }
+    }
     public string GetTop()
     {
         if (!Empty)

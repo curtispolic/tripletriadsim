@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 namespace tripletriadsim.Objects;
 
 class Board
@@ -21,11 +23,11 @@ class Board
         string output = "";
         for (int i = 0; i < 3; i++)
         {
-            output += $"   {CardList[i,0].GetTop()}   |   {CardList[i,1].GetTop()}   |   {CardList[i,2].GetTop()}   \n";
-            output += $" {CardList[i,0].GetLeft()}   {CardList[i,0].GetRight()} |";
-            output += $" {CardList[i,1].GetLeft()}   {CardList[i,1].GetRight()} |";
-            output += $" {CardList[i,2].GetLeft()}   {CardList[i,2].GetRight()} \n";
-            output += $"   {CardList[i,0].GetBottom()}   |   {CardList[i,1].GetBottom()}   |   {CardList[i,2].GetBottom()}   \n";
+            output += $"   {CardList[0,i].GetTop()}   |   {CardList[1,i].GetTop()}   |   {CardList[2,i].GetTop()}   \n";
+            output += $" {CardList[0,i].GetLeft()} {CardList[0,i].GetPlayer()} {CardList[0,i].GetRight()} |";
+            output += $" {CardList[1,i].GetLeft()} {CardList[1,i].GetPlayer()} {CardList[1,i].GetRight()} |";
+            output += $" {CardList[2,i].GetLeft()} {CardList[2,i].GetPlayer()} {CardList[2,i].GetRight()} \n";
+            output += $"   {CardList[0,i].GetBottom()}   |   {CardList[1,i].GetBottom()}   |   {CardList[2,i].GetBottom()}   \n";
             if (i != 2) 
             {
                 output += "-----------------------\n";
@@ -33,5 +35,38 @@ class Board
         }
 
         return output;
+    }
+
+    public bool PlayCard(Card playedCard, int x, int y)
+    {
+        if (CardList[x,y].Empty)
+        {
+            CardList[x,y] = playedCard;
+            // Check if captures card to the left
+            if (x != 0)
+            {
+                if (CardList[x-1,y].CheckIfCaptured(playedCard, "right")) CardList[x-1,y].Capture();
+            }
+            // Check if captures card to the right
+            if (x != 2)
+            {
+                if (CardList[x+1,y].CheckIfCaptured(playedCard, "left")) CardList[x+1,y].Capture();
+            }
+            // Check if captures above
+            if (y != 0)
+            {
+                if (CardList[x,y-1].CheckIfCaptured(playedCard, "below")) CardList[x,y-1].Capture();
+            }
+            // Check below
+            if (y != 2)
+            {
+                if (CardList[x,y+1].CheckIfCaptured(playedCard, "above")) CardList[x,y+1].Capture();
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
