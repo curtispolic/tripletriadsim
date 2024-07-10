@@ -53,4 +53,53 @@ class Card
             return "Empty\n";
         }
     }
+
+    // Functions to help with Board printing
+    public string GetTop()
+    {
+        if (!Empty)
+        {
+            return Top.ToString();
+        }
+        else
+        {
+            return " ";
+        }
+    }
+
+    public string GetRight()
+    {
+        if (!Empty)
+        {
+            return Right.ToString();
+        }
+        else
+        {
+            return " ";
+        }
+    }
+
+    public string GetLeft()
+    {
+        if (!Empty)
+        {
+            return Left.ToString();
+        }
+        else
+        {
+            return " ";
+        }
+    }
+
+    public string GetBottom()
+    {
+        if (!Empty)
+        {
+            return Bottom.ToString();
+        }
+        else
+        {
+            return " ";
+        }
+    }
 }
