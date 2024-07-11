@@ -4,6 +4,8 @@ class Program
 {
     static void Main()
     {
+        Player playerOne = new(true);
+        Player playerTwo = new(false);
         Board board = new();
         board.CardList[1,0] = new Card(8,1,5,4,true);
         board.CardList[2,0] = new Card(3,1,5,4,true);
@@ -15,5 +17,6 @@ class Program
         Console.WriteLine(board.ToString());
         board.PlayCard(card, 1, 2);
         Console.WriteLine(board.ToString());
+        Console.WriteLine(playerOne.ToString());
     }
 }
