@@ -21,56 +21,87 @@ class Game
                 Console.WriteLine(GameBoard.ToString());
                 Console.WriteLine(PlayerOne.ToString());
                 Console.WriteLine("Please input play command (<# Card to Play> <X,Y>):");
-                string input = Console.ReadLine();
 
-                string[] comms = input.Split(' ');
-                if (comms.Length != 2)
+                string? input = Console.ReadLine();
+                if (input != null)
                 {
-                    Console.WriteLine("Incorrect number of arguments to play command (should be 2)");
-                    continue;
-                }
+                    string[] comms = input.Split(' ');
 
-                int cardnum;
-                if (int.TryParse(comms[0], out cardnum))
-                {
-                    string[] coords = comms[1].Split(',');
-                    if (coords.Length != 2)
+                    if (comms.Length != 2)
                     {
-                        Console.WriteLine("Incorrect coordinates argument");
+                        Console.WriteLine("Incorrect number of arguments to play command (should be 2)");
                         continue;
                     }
-                    int x, y;
-                    if (int.TryParse(coords[0], out x) && int.TryParse(coords[1], out y))
+
+                    if (int.TryParse(comms[0], out int cardnum))
                     {
-                        if (x < 0 || x > 2 || y < 0 || y > 2)
+                        string[] coords = comms[1].Split(',');
+                        if (coords.Length != 2)
                         {
                             Console.WriteLine("Incorrect coordinates argument");
                             continue;
                         }
+                        if (int.TryParse(coords[0], out int x) && int.TryParse(coords[1], out int y))
+                        {
+                            if (x < 0 || x > 2 || y < 0 || y > 2)
+                            {
+                                Console.WriteLine("Incorrect coordinates argument");
+                                continue;
+                            }
+                            else
+                            {
+                                // Play the card then blank it in the set.
+                                if (GameBoard.PlayCard(PlayerOne.Cards[cardnum], x, y))
+                                {
+                                    PlayerOne.Cards[cardnum] = new();
+                                    PlayerOneTurn = !PlayerOneTurn;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Incorrect move");
+                                    continue;
+                                }
+                            }
+                        }
                         else
                         {
-                            GameBoard.PlayCard(PlayerOne.UnplayedCards()[cardnum-1], x, y);
-                            PlayerOneTurn = !PlayerOneTurn;
+                            Console.WriteLine("Incorrect coordinates argument");
+                            continue;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Incorrect coordinates argument");
+                        Console.WriteLine("Incorrect card number argument");
                         continue;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Incorrect card number argument");
-                    continue;
+                    Console.WriteLine("Null command not valid");
                 }
             }
             else
             {
-                Console.WriteLine(GameBoard.ToString());
-                Console.WriteLine(PlayerOne.ToString());
-                break;
-                // AI Player 2 stuffs
+                while (true)
+                {
+                    int x = rand.Next(3);
+                    int y = rand.Next(3);
+                    if (GameBoard.CardList[x,y].Empty)
+                    {
+                        Card card = new();
+                        int cardnum = 0;
+                        while (card.Empty)
+                        {
+                            cardnum = rand.Next(5);
+                            card = PlayerTwo.Cards[cardnum];
+                        }
+                        GameBoard.PlayCard(card, x, y);
+                        PlayerTwo.Cards[cardnum] = new();
+                        Console.WriteLine($"Player 2 played a card at {x},{y}");
+                        PlayerOneTurn = !PlayerOneTurn;
+                        break;
+                    }
+                }
             }
         }
         

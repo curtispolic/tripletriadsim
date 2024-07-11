@@ -21,29 +21,6 @@ class Player
         }
     }
 
-    public Card[] UnplayedCards()
-    {
-        int count = 0;
-        foreach (Card card in Cards)
-        {
-            if (!card.Empty)
-            {
-                count++;
-            }
-        }
-        Card[] output = new Card[count];
-        count = 0;
-        foreach (Card card in Cards)
-        {
-            if (!card.Empty)
-            {
-                output[count] = card;
-                count++;
-            }
-        }
-        return output;
-    }
-
     public override string ToString()
     {
         string output, line1 = "", line2 = "", line3 = "";
@@ -53,12 +30,17 @@ class Player
         {
             if (!card.Empty)
             {
-                count++;
-                output += $"   {count}   ";
+                output += $"   {count}    ";
                 line1 += $"   {card.GetTop()}   |";
                 line2 += $" {card.GetLeft()}   {card.GetRight()} |";
                 line3 += $"   {card.GetBottom()}   |";
             }
+            count++;
+        }
+        output += "\n";
+        for (int i = 0; i < line1.Length - 1; i++)
+        {
+            output += "-";
         }
         output += "\n" + line1.Substring(0,line1.Length-1) + "\n";
         output += line2.Substring(0,line2.Length-1) + "\n";
