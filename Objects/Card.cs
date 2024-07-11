@@ -71,14 +71,21 @@ class Card
         }
         else
         {
-            return OwnedByPlayerOne ? "A" : "B";
+            return OwnedByPlayerOne ? "O" : "X";
         }
     }
     public string GetTop()
     {
         if (!Empty)
         {
-            return Top.ToString();
+            if (Top < 10)
+            {
+                return Top.ToString();
+            }
+            else
+            {
+                return "A";
+            }
         }
         else
         {
@@ -90,7 +97,14 @@ class Card
     {
         if (!Empty)
         {
-            return Right.ToString();
+            if (Right < 10)
+            {
+                return Right.ToString();
+            }
+            else
+            {
+                return "A";
+            }
         }
         else
         {
@@ -102,7 +116,14 @@ class Card
     {
         if (!Empty)
         {
-            return Left.ToString();
+            if (Left < 10)
+            {
+                return Left.ToString();
+            }
+            else
+            {
+                return "A";
+            }
         }
         else
         {
@@ -114,7 +135,14 @@ class Card
     {
         if (!Empty)
         {
-            return Bottom.ToString();
+            if (Bottom < 10)
+            {
+                return Bottom.ToString();
+            }
+            else
+            {
+                return "A";
+            }
         }
         else
         {

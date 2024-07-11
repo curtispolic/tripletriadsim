@@ -1,5 +1,4 @@
 ﻿using tripletriadsim.Objects;
-using System.Text;
 
 class Program
 {

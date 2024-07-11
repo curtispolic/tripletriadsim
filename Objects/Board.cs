@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace tripletriadsim.Objects;
 
 class Board
@@ -35,6 +33,16 @@ class Board
         }
 
         return output;
+    }
+
+    public int PlayedCards()
+    {
+        int count = 0;
+        foreach (Card card in CardList)
+        {
+            if (!card.Empty) count++;
+        }
+        return count;
     }
 
     public bool PlayCard(Card playedCard, int x, int y)
