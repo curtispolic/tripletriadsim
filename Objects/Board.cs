@@ -18,18 +18,15 @@ class Board
 
     public override string ToString()
     {
-        string output = "";
+        string output = "     0       1       2    \n +-------+-------+-------+\n";
         for (int i = 0; i < 3; i++)
         {
-            output += $"   {CardList[0,i].GetTop()}   |   {CardList[1,i].GetTop()}   |   {CardList[2,i].GetTop()}   \n";
-            output += $" {CardList[0,i].GetLeft()} {CardList[0,i].GetPlayer()} {CardList[0,i].GetRight()} |";
+            output += $" |   {CardList[0,i].GetTop()}   |   {CardList[1,i].GetTop()}   |   {CardList[2,i].GetTop()}   |\n";
+            output += $"{i}| {CardList[0,i].GetLeft()} {CardList[0,i].GetPlayer()} {CardList[0,i].GetRight()} |";
             output += $" {CardList[1,i].GetLeft()} {CardList[1,i].GetPlayer()} {CardList[1,i].GetRight()} |";
-            output += $" {CardList[2,i].GetLeft()} {CardList[2,i].GetPlayer()} {CardList[2,i].GetRight()} \n";
-            output += $"   {CardList[0,i].GetBottom()}   |   {CardList[1,i].GetBottom()}   |   {CardList[2,i].GetBottom()}   \n";
-            if (i != 2) 
-            {
-                output += "-----------------------\n";
-            }
+            output += $" {CardList[2,i].GetLeft()} {CardList[2,i].GetPlayer()} {CardList[2,i].GetRight()} |\n";
+            output += $" |   {CardList[0,i].GetBottom()}   |   {CardList[1,i].GetBottom()}   |   {CardList[2,i].GetBottom()}   |\n";
+            output += " +-------+-------+-------+\n";
         }
 
         return output;
